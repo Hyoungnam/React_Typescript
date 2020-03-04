@@ -4,4 +4,4 @@
 
 ## Repository
 
-+[Boilerplate](https://github.com/Hyoungnam/React_Typescript/tree/master/boilerplate)
+- [Boilerplate](https://github.com/Hyoungnam/React_Typescript/tree/master/boilerplate)
