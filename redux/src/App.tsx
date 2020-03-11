@@ -1,5 +1,10 @@
 import * as React from "react";
-import "./redux/reducers/exercise";
+import CounterContainer from "./containers/CounterContainer";
+// import "./redux/reducers/exercise";
 export const App: React.FC = () => {
-  return <div>App</div>;
+  return (
+    <div>
+      <CounterContainer></CounterContainer>
+    </div>
+  );
 };
