@@ -1,8 +1,19 @@
+
+export interface IState {
+  id: number;
+  text: string;
+  done: boolean;
+}
+
+type TNextAction = ReturnType<typeof addTodo | typeof toggleTodo>;
+
+//액션
 const ADD_TODO = "todos/ADD_TODO" as const;
 const TOGGLE_TODO = "todos/TOGGLE_TODO" as const;
 const DECREASE = "counter/DECREASE" as const;
 
 let nextId = 1;
+//액션함수
 export const addTodo = (text: string) => ({
   type: ADD_TODO,
   todo: {
@@ -13,12 +24,8 @@ export const addTodo = (text: string) => ({
 });
 export const toggleTodo = (id: number) => ({ type: TOGGLE_TODO, id });
 
-interface IState {
-  id: number;
-  text: string;
-  done: boolean;
-}
 
+//초기상태
 const initialState: Array<IState> = [
   // {
   //  id:1,
@@ -27,8 +34,7 @@ const initialState: Array<IState> = [
   // }
 ];
 
-type TNextAction = ReturnType<typeof addTodo | typeof toggleTodo>;
-
+//리듀서
 export default function todos(
   prev: Array<IState> = initialState,
   next: TNextAction

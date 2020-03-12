@@ -5,7 +5,10 @@ module.exports = {
   mode: "development", //prodcution
   devtool: "eval", //hidden-source-map
   resolve: {
-    extensions: [".js", ".jsx", ".tsx", ".ts"]
+    extensions: [".js", ".jsx", ".tsx", ".ts"],
+    alias: {
+      "@redux": path.resolve(__dirname, "src/redux/")
+    }
   },
   entry: {
     app: ["./src/index.tsx"]
@@ -20,6 +23,7 @@ module.exports = {
     ]
   },
   plugins: [],
+  
   output: {
     path: path.join(__dirname, "dist"),
     filename: "[name].js",
