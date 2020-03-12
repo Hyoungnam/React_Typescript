@@ -25,7 +25,8 @@ const TodoItem = React.memo(function TodoItem({ todo, onToggle }: ITodoItem) {
 })
 
 
-// function TodoList({todos, onToggle}: Exclude<ITodos, "onCreate">) {
+// function TodoList({todos, onToggle}: Exclude<ITodos, "onCreate">) { 이방법은 실패 -> optional로 하면될것을...
+
 const TodoList = React.memo(function TodoList({todos, onToggle}: ITodos) {
   return (<ul>
     {todos.map(todo=><TodoItem key={todo.id} 

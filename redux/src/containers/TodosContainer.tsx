@@ -8,7 +8,7 @@ export default function TodosContainer() {
   const todos = useSelector((reducers:RootState)=> reducers.todos);
   const dispatch = useDispatch();
 
-  ////가독성이 좋지 않을수도
+  ////가독성이 좋지 않을수도 하지만 반자동화
   // const onCreate = (text: IState["text"]) => dispatch(addTodo(text));
   const onCreate = (text: string) => dispatch(addTodo(text));
   const onToggle = (id: number) => dispatch(toggleTodo(id));
