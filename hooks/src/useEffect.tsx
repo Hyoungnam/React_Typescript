@@ -1,7 +1,7 @@
 import * as React from 'react'
 import {useState, useEffect} from "react";
 
-export const UseEffect = () => {
+export const UseEffect: React.FC = () => {
   const sayHello = () => {console.log("Hello");}
   const [number, setNumber] = useState(0);
   const [aNumber, setAnumber] = useState(0);

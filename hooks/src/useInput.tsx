@@ -20,7 +20,7 @@ const useInput = <U extends Function> (initialValue:string, validator:U) => {
   return { value, onChange }
 }
 
-export const UseInput = () => {
+export const UseInput: React.FC = () => {
 
   const maxLen = (value:string) => value.length < 10
   const include = (value:string) => !value.includes("@");

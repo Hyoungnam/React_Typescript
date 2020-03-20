@@ -12,7 +12,7 @@ const useTitle = (initialTitle:string) => {
  return setTitle;
 }
 
-export const UseTitle = () => {
+export const UseTitle: React.FC = () => {
   const titleUpdater = useTitle("Loading...");
   setTimeout(() => { titleUpdater("Home");}, 2000);
 

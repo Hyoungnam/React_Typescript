@@ -1,7 +1,7 @@
 import * as React from 'react'
 import {useState} from "react";
 
-export const UseState = () => {
+export const UseState: React.FC = () => {
   //  const [item] = useState(1)[0]
   const [item, setItem] = useState(1);
   const incrementItem = () => setItem(item + 1);

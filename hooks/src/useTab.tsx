@@ -24,7 +24,7 @@ const useTab = (initialTab:number, allTabs:Array<TabContent>) => {
       changeItem: setCurrentIndex
     };
 }
-export const UseTab = () => {
+export const UseTab: React.FC = () => {
   const {currentItem, changeItem} = useTab(0, content);
   return (
     <div>
