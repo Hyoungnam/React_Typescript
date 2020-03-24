@@ -9,6 +9,8 @@ import { UseClick } from "./useClick";
 import FetchData from "./etc/fetchData";
 import UseDataFetch from "./useDataFetch";
 import {Example} from "./test";
+import {Counter} from "./useCounter";
+import {UseLocalStorage} from "./useLocalstorage";
 export const App: React.FC = () => {
   return (
   <div>
@@ -22,5 +24,7 @@ export const App: React.FC = () => {
     {/* <FetchData/> */}
     <UseDataFetch/>
     <Example/>
+    <Counter/>
+    <UseLocalStorage/>
   </div>);
 };
