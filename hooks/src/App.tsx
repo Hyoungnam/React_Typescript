@@ -8,6 +8,7 @@ import { UseRef } from "./useRef";
 import { UseClick } from "./useClick";
 import FetchData from "./etc/fetchData";
 import UseDataFetch from "./useDataFetch";
+import {Example} from "./test";
 export const App: React.FC = () => {
   return (
   <div>
@@ -20,5 +21,6 @@ export const App: React.FC = () => {
     <UseClick/>
     {/* <FetchData/> */}
     <UseDataFetch/>
+    <Example/>
   </div>);
 };

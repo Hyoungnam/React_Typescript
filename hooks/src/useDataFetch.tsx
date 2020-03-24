@@ -1,6 +1,6 @@
 import * as React from "react";
 import axios from "axios";
-import {Fragment, useState, useEffect} from "react";
+import {Fragment, useState, useEffect, Dispatch, SetStateAction} from "react";
 interface Ihits {
   objectID: string;
   url: string;
@@ -10,9 +10,19 @@ interface Ihits {
 interface IinitialData<T> {
   hits: Array<T>
 }
-
-
-const useDataApi = (initialUrl:string, initialData: IinitialData<Ihits>) => {
+//방법2
+// interface DataApiResponse  {
+//   response: {
+//     data: IinitialData<Ihits>;
+//     isLoading: boolean;
+//     isError: boolean;
+//   };
+//   setUrl: React.Dispatch<React.SetStateAction<string>>;
+// }
+interface test {
+  
+}
+const useDataApi = (initialUrl:string, initialData: IinitialData<Ihits>): [{data: IinitialData<Ihits>; isLoading: boolean; isError: boolean}, Dispatch<SetStateAction<string>>] => {
   const [data, setData] = useState(initialData);
   const [url, setUrl] = useState(initialUrl);
   const [isLoading, setIsLoading] = useState(false);
@@ -31,16 +41,22 @@ const useDataApi = (initialUrl:string, initialData: IinitialData<Ihits>) => {
     };
     fetchData();
   }, [url]);
-  // return [{ data, isLoading, isError }, setUrl];
-  return {data, isLoading, isError , setUrl};
+  return [{ data, isLoading, isError }, setUrl];
+  // return {data, isLoading, isError , setUrl};
+  
+  // 방법2
+  // return {response: {data, isLoading, isError}, setUrl} as DataApiResponse;
 };
 
 function UseDataFetch() {
   const [query, setQuery] = useState('redux');
-  const {data, isLoading, isError, setUrl} = useDataApi(
+  const [{data, isLoading, isError}, setUrl] = useDataApi(
     'https://hn.algolia.com/api/v1/search?query=redux',
     { hits: [] },
   );
+  // 방법2
+  // const {response, setUrl} = useDataApi(
+  // const {data, isError, isLoading} = response;
   return (
     <Fragment>
       <form
