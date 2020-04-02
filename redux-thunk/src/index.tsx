@@ -8,17 +8,23 @@ import rootReducer from "@redux/reducers";
 import logger from "redux-logger";
 import { composeWithDevTools } from "redux-devtools-extension";
 import thunk from "redux-thunk"
-import { BrowserRouter } from "react-router-dom";
+// import { BrowserRouter } from "react-router-dom";
+import { Router } from "react-router-dom";
+import { createBrowserHistory } from "history";
+
+const customHistory = createBrowserHistory();
 
 const Hot = hot(App); //HOC
 
-const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(logger, thunk)));
-console.log("store.getState(): ", store.getState());
+const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(logger, thunk.withExtraArgument({
+  history: customHistory
+}))));
+
 ReactDOM.render(
-  <BrowserRouter>
+  <Router history={customHistory}>
     <Provider store={store}>
       <Hot />
     </Provider>
-  </BrowserRouter>,
+  </Router>,
   document.querySelector("#root")
 );

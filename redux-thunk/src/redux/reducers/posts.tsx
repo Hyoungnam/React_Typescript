@@ -183,14 +183,16 @@ const CLEAR_POST = "CLEAR_POST" as const;
 export const getPosts = createPromiseThunk(GET_POSTS, postsAPI.getPosts); 
 export const getPost = createPromiseThunkById(GET_POST, postsAPI.getPostById); 
 export const clearPost = () => ({ type: CLEAR_POST });
+export const goToHome = () => ( dispatch: Dispatch, getState: any, { history }: {history: any}) => {
+  history.push("/");
+};
 
-//-2 reducer 바꾸어야 함
+
 const initialState = {
   posts: reducerUtils.initial(),
   post: {}
 }
 
-//next.payload로 바뀜
 // const getPostsReducer = handleAsyncActions(GET_POSTS, "posts", true);
 const getPostsReducer = handleAsyncActions(GET_POSTS, "posts");
 const getPostReducer = handleAsyncActionsById(GET_POST, "post");

@@ -2,7 +2,7 @@ import * as React from "react";
 import { useEffect } from "react";
 import { useSelector, useDispatch }from "react-redux";
 import { RootState } from "@redux/reducers/index";
-import { getPost } from "@redux/reducers/posts";
+import { getPost, goToHome } from "@redux/reducers/posts";
 import Post from "../components/Post";
 import { reducerUtils } from "../../src/lib/asyncUtils";
 
@@ -24,7 +24,10 @@ const PostContainer: React.FC<IPostContainerProps> = ({ postId }) => {
   if(error) return <div>에러 발생!</div>
   if(!data) return null;
   return (
-    <Post post={data} />
+    <>
+      <button onClick={ ()=> dispatch(goToHome()) }>홈으로 이동</button>
+      <Post post={data} />
+    </>
   )
 }
 
