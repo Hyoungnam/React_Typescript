@@ -1,7 +1,7 @@
 
 const sleep = (n: number) => new Promise(resolve => setTimeout(resolve, n))
 
-// sleep(1000).then(()=> console.log("Hello World"));
+sleep(1000).then(()=> console.log("Hello World"));
 export interface Ipost {
   id: number,
   title: string,
@@ -34,3 +34,16 @@ export const getPostById = async (id: number) => {
   await sleep(500);
   return posts.find(post => post.id === id);
 };
+
+// import axios from "axios";
+
+// export const getPosts = async () => {
+//   // const response = await axios.get("http://localhost:4000/posts");
+//   const response = await axios.get("/posts");
+//   return response;
+// };
+// export const getPostById = async (id: number) => {
+//   // const response: ResponseType = await axios.get(`http://localhost:4000/post/${id}`);
+//   const response: ResponseType = await axios.get(`/post/${id}`);
+//   return response;
+// };
