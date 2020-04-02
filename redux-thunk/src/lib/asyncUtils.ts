@@ -43,6 +43,32 @@ export const createPromiseThunk = (type: any, promiseCreator: any) => {
   // return thunkCreator;
 }
 
+const defaultIdSelector = (param:any) => param;
+
+export const createPromiseThunkById = (type: any, promiseCreator: any, idSelector = defaultIdSelector) => {
+  const [SUCCESS, ERROR] = [`${type}_SUCCESS`, `${type}_ERROR`];
+  // const thunkCreator = (param?: any) => async (dispatch: any) => {
+  return (param?: any) => async (dispatch: any) => {
+  const id = idSelector(param);
+  dispatch({type, meta: id});
+    try {
+      const payload = await promiseCreator(param);
+      dispatch({
+        type: SUCCESS,
+        payload,
+        meta: id
+      });
+    } catch(e) {
+      dispatch({
+        type: ERROR,
+        payload: e,
+        error: true,
+        meta: id
+      })
+    }
+  }
+}
+
 export const handleAsyncActions = (type: any, key: any, keepData?: boolean) => {
   const [SUCCESS, ERROR] = [`${type}_SUCCESS`, `${type}_ERROR`];
   return (prev: any, next: any) => {
@@ -61,6 +87,40 @@ export const handleAsyncActions = (type: any, key: any, keepData?: boolean) => {
         return {
           ...prev,
           [key]: reducerUtils.error(next.payload)
+        };
+      default:
+        return prev;
+    }
+  };
+}
+export const handleAsyncActionsById = (type: any, key: any, keepData?: boolean) => {
+  const [SUCCESS, ERROR] = [`${type}_SUCCESS`, `${type}_ERROR`];
+  return (prev: any, next: any) => {
+    const id = next.meta;
+    switch (next.type) {
+      case type:
+        return {
+          ...prev,
+          [key]: {
+            ...prev[key],
+            [id]: reducerUtils.loading(keepData ? next[key][id] && next[key][id].data : null)
+          }
+        };
+      case SUCCESS:
+        return {
+          ...prev,
+          [key]: {
+            ...prev[key],
+            [id]: reducerUtils.success(next.payload)
+          }
+        };
+      case ERROR:
+        return {
+          ...prev,
+          [key]: {
+            ...prev[key],
+            [id]: reducerUtils.error(next.payload)
+          }
         };
       default:
         return prev;

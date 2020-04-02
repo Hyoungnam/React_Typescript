@@ -1,7 +1,7 @@
 import { Dispatch, Action } from "redux";
 import * as postsAPI from "../../api/posts";
 import { Ipost } from "../../api/posts";
-import { reducerUtils, createPromiseThunk, handleAsyncActions } from "../../lib/asyncUtils";
+import { reducerUtils, createPromiseThunk, createPromiseThunkById, handleAsyncActions, handleAsyncActionsById } from "../../lib/asyncUtils";
 
 const GET_POSTS = 'GET_POSTS' as const;
 const GET_POSTS_SUCCESS = 'GET_POSTS_SUCCESS' as const;
@@ -181,19 +181,19 @@ const CLEAR_POST = "CLEAR_POST" as const;
 
 // //-1
 export const getPosts = createPromiseThunk(GET_POSTS, postsAPI.getPosts); 
-export const getPost = createPromiseThunk(GET_POST, postsAPI.getPostById);
+export const getPost = createPromiseThunkById(GET_POST, postsAPI.getPostById); 
 export const clearPost = () => ({ type: CLEAR_POST });
 
 //-2 reducer 바꾸어야 함
 const initialState = {
   posts: reducerUtils.initial(),
-  post: reducerUtils.initial()
+  post: {}
 }
 
 //next.payload로 바뀜
 // const getPostsReducer = handleAsyncActions(GET_POSTS, "posts", true);
 const getPostsReducer = handleAsyncActions(GET_POSTS, "posts");
-const getPostReducer = handleAsyncActions(GET_POST, "post");
+const getPostReducer = handleAsyncActionsById(GET_POST, "post");
 
 export default function posts(prev = initialState, next: any) {
   switch (next.type) {
