@@ -2,17 +2,12 @@ import * as React from "react";
 import { useEffect } from "react";
 import { useSelector, useDispatch }from "react-redux";
 import { RootState } from "@redux/reducers/index";
-
-// import { getPosts } from "@redux/reducers/posts";
-// import { getPosts } from "@redux/reducers/posts_withAsyncUtils";
-import { getPosts } from "@redux/reducers/posts_withCreatePromiseThunk";
-
+import { getPosts } from "@redux/reducers/posts";
 import PostList from "../components/PostList";
+
 const PostListContainer: React.FC = () => {
   const {data, loading, error } = useSelector((reducer: RootState) => 
-    // reducer.posts.posts
-    // reducer.posts_withAsyncUtils.posts
-    reducer.posts_withCreatePromiseThunk.posts
+    reducer.posts.posts
   )
   const dispatch = useDispatch();
   useEffect(() => {

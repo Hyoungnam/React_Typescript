@@ -1,5 +1,3 @@
-import {Ipost} from "../api/posts"
-
 export const reducerUtils = {
   initial: (initialData = null) => ({
     loading: false,
@@ -11,12 +9,12 @@ export const reducerUtils = {
     data: prevState,
     error: null
   }),
-  success: (payload: Array<Ipost>) => ({
+  success: (payload: any) => ({
     loading: false,
     data: payload,
     error: null
   }),
-  error: (error: Error) => ({
+  error: (error: any) => ({
     loading: false,
     data: null,
     error: error
@@ -25,11 +23,11 @@ export const reducerUtils = {
 
 export const createPromiseThunk = (type: any, promiseCreator: any) => {
   const [SUCCESS, ERROR] = [`${type}_SUCCESS`, `${type}_ERROR`];
-  // const thunkCreator = param => async dispatch => {
+  // const thunkCreator = (param?: any) => async (dispatch: any) => {
   return (param?: any) => async (dispatch: any) => {
   dispatch({type});
     try {
-      const payload = await promiseCreator(param);
+      const payload = await promiseCreator();
       dispatch({
         type: SUCCESS,
         payload
