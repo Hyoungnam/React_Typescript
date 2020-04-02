@@ -27,7 +27,7 @@ export const createPromiseThunk = (type: any, promiseCreator: any) => {
   return (param?: any) => async (dispatch: any) => {
   dispatch({type});
     try {
-      const payload = await promiseCreator();
+      const payload = await promiseCreator(param);
       dispatch({
         type: SUCCESS,
         payload
@@ -43,14 +43,14 @@ export const createPromiseThunk = (type: any, promiseCreator: any) => {
   // return thunkCreator;
 }
 
-export const handleAsyncActions = (type: any, key: any) => {
+export const handleAsyncActions = (type: any, key: any, keepData?: boolean) => {
   const [SUCCESS, ERROR] = [`${type}_SUCCESS`, `${type}_ERROR`];
   return (prev: any, next: any) => {
     switch (next.type) {
       case type:
         return {
           ...prev,
-          [key]: reducerUtils.loading()
+          [key]: reducerUtils.loading(keepData ? next[key].data : null)
         };
       case SUCCESS:
         return {

@@ -10,6 +10,7 @@ const GET_POST = 'GET_POST' as const;
 const GET_POST_SUCCESS = 'GET_POST_SUCCESS' as const;
 const GET_POST_ERROR = 'GET_POST_ERROR' as const;
 
+const CLEAR_POST = "CLEAR_POST" as const;
 
 // export const getPosts = () => async (dispatch: Dispatch) => {
 //   //요청이 시작됨
@@ -34,20 +35,20 @@ const GET_POST_ERROR = 'GET_POST_ERROR' as const;
 
 // export const getPost = (id: number) => async (dispatch: Dispatch) => {
 //   //요청이 시작됨
-//   dispatch({type: GET_POSTS})
+//   dispatch({type: GET_POST})
 //   //API를 호출
 //   try {
 //     const post = await postsAPI.getPostById(id);
 //     //성공했을 때
 //     dispatch({
-//       type:GET_POSTS_SUCCESS,
+//       type:GET_POST_SUCCESS,
 //       post
 //     });
 //   } 
 //   catch (e) {
 //     //실패했을 때 
 //     dispatch({
-//       type:GET_POSTS_ERROR,
+//       type:GET_POST_ERROR,
 //       error: e
 //     })
 //   }
@@ -178,9 +179,11 @@ const GET_POST_ERROR = 'GET_POST_ERROR' as const;
 //   }
 // }
 
-//-1
+// //-1
 export const getPosts = createPromiseThunk(GET_POSTS, postsAPI.getPosts); 
 export const getPost = createPromiseThunk(GET_POST, postsAPI.getPostById);
+export const clearPost = () => ({ type: CLEAR_POST });
+
 //-2 reducer 바꾸어야 함
 const initialState = {
   posts: reducerUtils.initial(),
@@ -188,6 +191,7 @@ const initialState = {
 }
 
 //next.payload로 바뀜
+// const getPostsReducer = handleAsyncActions(GET_POSTS, "posts", true);
 const getPostsReducer = handleAsyncActions(GET_POSTS, "posts");
 const getPostReducer = handleAsyncActions(GET_POST, "post");
 
@@ -201,6 +205,11 @@ export default function posts(prev = initialState, next: any) {
     case GET_POST_SUCCESS:
     case GET_POST_ERROR:
         return getPostReducer(prev, next);
+    case CLEAR_POST:
+        return {
+          ...prev,
+          post: reducerUtils.initial()
+        }
     default:
       return prev;
   }

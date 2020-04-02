@@ -8,13 +8,17 @@ import rootReducer from "@redux/reducers";
 import logger from "redux-logger";
 import { composeWithDevTools } from "redux-devtools-extension";
 import thunk from "redux-thunk"
+import { BrowserRouter } from "react-router-dom";
+
 const Hot = hot(App); //HOC
 
 const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(logger, thunk)));
 console.log("store.getState(): ", store.getState());
 ReactDOM.render(
-  <Provider store={store}>
-    <Hot />
-  </Provider>,
+  <BrowserRouter>
+    <Provider store={store}>
+      <Hot />
+    </Provider>
+  </BrowserRouter>,
   document.querySelector("#root")
 );

@@ -1,12 +1,16 @@
 import * as React from "react";
-import PostListContainer from "./containers/PostListContainer";
-// import "./redux/reducers/exercise";
+// import PostListContainer from "./containers/PostListContainer";
+import { Route } from "react-router-dom";
+import PostListPage from "./pages/PostListPage";
+import PostPage from "./pages/PostPage";
+
 export const App: React.FC = () => {
   return (
     <div>
       {/* <CounterContainer /> */}
-      <PostListContainer />
-      <div>test</div>
+      {/* <PostListContainer /> */}
+      <Route path="/" component={PostListPage} exact />
+      <Route path="/:id" component={PostPage} />
     </div>
   );
 };

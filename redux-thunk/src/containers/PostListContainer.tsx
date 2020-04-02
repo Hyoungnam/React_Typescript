@@ -6,15 +6,16 @@ import { getPosts } from "@redux/reducers/posts";
 import PostList from "../components/PostList";
 
 const PostListContainer: React.FC = () => {
-  const {data, loading, error } = useSelector((reducer: RootState) => 
+  const { data, loading, error } = useSelector((reducer: RootState) => 
     reducer.posts.posts
   )
   const dispatch = useDispatch();
   useEffect(() => {
+    if(data) return;
     dispatch(getPosts())
   }, [dispatch]);
   
-  if(loading) return <div>로딩중...</div>
+  if(loading && !data) return <div>로딩중...</div>
   if(error) return <div>에러 발생!</div>
   console.log("data: ", data);
   if(!data) return null;
