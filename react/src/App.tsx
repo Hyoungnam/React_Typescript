@@ -1,6 +1,8 @@
 import * as React from "react";
-import TodoTemplate from "./Todos";
+import Todos from "./Todos";
 
 export const App: React.FC = () => {
-  return <TodoTemplate>Todo App을 만들자!</TodoTemplate>
+  return (
+    <Todos />
+  )
 };
