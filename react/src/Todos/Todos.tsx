@@ -18,8 +18,8 @@ const Todos: React.FC = () => {
       checked: false,
     },
     {
-      id: 2,
-      text: "리액트 호호호호호",
+      id: 3,
+      text: "리액트 호호호호호3",
       checked: false,
     }
   ]);
@@ -36,11 +36,25 @@ const Todos: React.FC = () => {
     },
     [todos],
   )
-
+  const onRemove = useCallback(
+    (id) => {
+      setTodos(todos.filter(todo => todo.id !== id));
+    },
+    [todos],
+  );
+  const onToggle = useCallback(
+    (id) => {
+      setTodos(
+        todos.map(todo=>todo.id===id ? {...todo, checked: !todo.checked} 
+                                     : todo
+      ));
+    },
+    [todos],
+  );
   return (
     <TodoTemplate>
       <TodoInsert onInsert={onInsert}/>
-      <TodoList todos={todos} />
+      <TodoList todos={todos} onRemove={onRemove} onToggle={onToggle}/>
     </TodoTemplate>
   ) 
 }

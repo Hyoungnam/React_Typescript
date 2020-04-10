@@ -9,19 +9,21 @@ interface ITodo {
 interface ITodoListItem {
   key: number;
   todo: ITodo;
+  onRemove: (id:number) => void;
+  onToggle: (id:number) => void;
 }
 
-const TodoListItem: React.FC<ITodoListItem> = ({todo}) => {
-  const { text, checked } = todo; 
+const TodoListItem: React.FC<ITodoListItem> = ({todo, onRemove, onToggle}) => {
+  const { id, text, checked } = todo; 
   return (
     <Wrapper>
 
-      <CheckBox isChecked={checked}>
+      <CheckBox isChecked={checked} onClick={()=> onToggle(id)}>
         {checked ? <MdCheckBox /> : <MdCheckBoxOutlineBlank />}
         <Text>{text}</Text>
       </CheckBox>
 
-      <Remove>
+      <Remove onClick={ () => onRemove(id)}>
         <MdRemoveCircleOutline />
       </Remove>
     </Wrapper>

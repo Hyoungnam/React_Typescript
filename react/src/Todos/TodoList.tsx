@@ -8,15 +8,19 @@ interface ITodo {
   checked: boolean,
 }
 interface ITodos {
-  todos: Array<ITodo>
+  todos: Array<ITodo>;
+  onRemove: (id:number) => void;
+  onToggle: (id:number) => void;
 }
 
-const TodoList: React.FC<ITodos> = ({todos}) => {
+const TodoList: React.FC<ITodos> = ({todos, onRemove, onToggle}) => {
   return (
     <Wrapper>
       {todos.map(todo => (
         <TodoListItem key={todo.id}
                       todo={todo}  
+                      onRemove={onRemove}
+                      onToggle={onToggle}
         />
       ))}
     </Wrapper>
