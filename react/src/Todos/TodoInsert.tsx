@@ -1,22 +1,37 @@
 import * as React from 'react'
+import { useState, useCallback } from "react"; 
 import { MdAdd } from "react-icons/md";
 import styled from "styled-components";
+interface ITodoInsert {
+  onInsert: (text: string) => void;
+}
+const TodoInsert: React.FC<ITodoInsert> = ({ onInsert }) => {
+  const [value, setValue] = useState('');
 
-const TodoInsert: React.FC = () => {
+  const onChange = useCallback(e => {
+    setValue(e.target.value);
+  }, []);
+  const onSubmit = useCallback(
+    (e) => {
+      onInsert(value);
+      setValue('');
+      e.preventDefault();
+    },
+    [onInsert, value],
+  );
+
   return (
-    <Form>
-      <input placeholder="할 일을 입력하세요" />
+    <Form onSubmit={onSubmit}>
+      <input placeholder="할 일을 입력하세요" 
+             value={value}
+             onChange={onChange}
+      />
       <button type="submit">
         <MdAdd />
       </button>
     </Form>    
   )
 }
-// interface IProps {
-//   todoTemplate?: boolean;
-//   appTitle?: boolean;
-//   content?: boolean;
-// }
 
 const Form = styled.form`
   display: flex;
