@@ -31,7 +31,8 @@ const TodoListItem: React.FC<ITodoListItem> = ({todo, onRemove, onToggle}) => {
   )
 }
 
-export default TodoListItem;
+export default React.memo(TodoListItem);
+// export default TodoListItem;
 
 interface ICheckBox {
   isChecked?: boolean
