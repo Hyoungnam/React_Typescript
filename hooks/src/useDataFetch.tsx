@@ -1,14 +1,17 @@
 import * as React from "react";
 import axios from "axios";
 import {Fragment, useState, useEffect, Dispatch, SetStateAction} from "react";
-interface Ihits {
-  objectID: string;
-  url: string;
-  title: string;
-}
+// interface Ihits {
+//   objectID: string;
+//   url: string;
+//   title: string;
+// }
 
-interface IinitialData<T> {
-  hits: Array<T>
+// interface IinitialData<T> {
+//   hits: Array<T>
+// }
+interface LooseObject {
+  [key: string]: Array<any>
 }
 //방법2
 // interface DataApiResponse  {
@@ -19,10 +22,8 @@ interface IinitialData<T> {
 //   };
 //   setUrl: React.Dispatch<React.SetStateAction<string>>;
 // }
-interface test {
-  
-}
-const useDataApi = (initialUrl:string, initialData: IinitialData<Ihits>): [{data: IinitialData<Ihits>; isLoading: boolean; isError: boolean}, Dispatch<SetStateAction<string>>] => {
+
+const useDataApi = (initialUrl:string, initialData: LooseObject): [{data: LooseObject; isLoading: boolean; isError: boolean}, Dispatch<SetStateAction<string>>] => {
   const [data, setData] = useState(initialData);
   const [url, setUrl] = useState(initialUrl);
   const [isLoading, setIsLoading] = useState(false);
@@ -59,6 +60,7 @@ function UseDataFetch() {
   // const {data, isError, isLoading} = response;
   return (
     <Fragment>
+      <h2>useDataFetch</h2>
       <form
         onSubmit={event => {
           setUrl(
@@ -75,17 +77,15 @@ function UseDataFetch() {
         <button type="submit">Search</button>
       </form>
       {isError && <div>Something went wrong ...</div>}
-      {isLoading ? (
-        <div>Loading ...</div>
-      ) : (
-        <ul>
-          {data.hits.map((item) => (
-            <li key={item.objectID}>
-              <a href={item.url}>{item.title}</a>
-            </li>
-          ))}
-        </ul>
-      )}
+      {isLoading ? (<div>Loading ...</div>) 
+                 : (<ul>
+                      {data.hits.map((item) => (
+                        <li key={item.objectID}>
+                          <a href={item.url}>{item.title}</a>
+                        </li>
+                      ))}
+                    </ul>
+                    )}
     </Fragment>
   );
 }

@@ -1,6 +1,6 @@
 import * as React from "react";
 import {UseState} from "./useState";
-import {UseInput} from "./useInput";
+import {UseInputTwo} from "./useInputTwo";
 import { UseTab } from "./useTab";
 import { UseEffect } from "./useEffect";
 import { UseTitle } from "./useTitle";
@@ -11,11 +11,12 @@ import UseDataFetch from "./useDataFetch";
 import {Example} from "./test";
 import {Counter} from "./useCounter";
 import {UseLocalStorage} from "./useLocalstorage";
+import UseDataFetchTwo from "./useDataFetchTwo";
 export const App: React.FC = () => {
   return (
   <div>
     <UseState/>
-    <UseInput/>
+    <UseInputTwo/>
     <UseTab/>
     <UseEffect/>
     <UseTitle/>
@@ -26,5 +27,6 @@ export const App: React.FC = () => {
     <Example/>
     <Counter/>
     <UseLocalStorage/>
+    <UseDataFetchTwo />
   </div>);
 };
