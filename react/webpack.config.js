@@ -19,6 +19,9 @@ module.exports = {
       }
     ]
   },
+  devServer: {
+    historyApiFallback: true,
+  },
   plugins: [],
   output: {
     path: path.join(__dirname, "dist"),
